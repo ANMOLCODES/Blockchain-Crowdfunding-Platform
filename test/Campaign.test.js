@@ -49,6 +49,81 @@ describe('Campaigns', () => {
     });
 
     it('allows people to contrbute money and makrs them as approvers', async () => {
-        await campaign.,
+        await campaign.methods.contribute().send({
+            value: '200',
+            from: accounts[1]
+        }); //contribute is a public variable that we created in our contract
+        //if a variable is marked public we automatically get a method to access it for eg. 'manager' and 'approvers' in contract.sol
+        const isContributor = await campaign.methods.approvers(accounts[1]).call(); //'approvers' is the method that we get because 'approvers' is a public variable of type mapping (that returns a 'bool' when we pass an 'address' to it) that we made in our contract that allows us to access that mapping 
+        assert(isContributor); //if isContributor return a true value, assert will pass so the test will pass otherwise the test will fail
+    });
+
+    it('requires a minimum contribution', async ()=> {
+        try {
+            await campaign.methods.contribute().send({
+                value: '200',
+                from: accounts[1]
+            });
+            console.log('enough contribution');
+        } catch (err) {
+            console.log('not enough contribution');
+        }
+    });
+
+    it('allows a manager to make a payment request', async ()=> {
+        await campaign.methods.createRequest('Buy batteries','100',accounts[1])
+            .send({
+                from: accounts[0],
+                gas: '1000000'
+            });
+        const request = await campaign.methods.requests(0).call(); //'requests' is a public variable of type struct we made in our contract that contains the list of all requests made by the manager
+        
+        assert.equal('Buy batteries', request.description); //we can check for other protperties of the 'Request' struct from our contract but one gives us a fair enough idea if it is working or not
+    });
+
+    it('it processes requests/works end-to-end', async () => {
+        console.log('Commencing end-2-end test:');
+        await campaign.methods.contribute().send({
+            from: accounts[0],
+            value: web3.utils.toWei('10', 'ether')
+        }); //now accounts[0] is marked as a contributor
+        console.log('campaign created...');
+
+        await campaign.methods.createRequest('Buy batteries', web3.utils.toWei('5', 'ether'), accounts[1]).send({
+            from: accounts[0], 
+            gas: '1000000'
+        }); //creating a request to send some amount of ether to accounts[1] 
+        console.log('request for 5 ether created...');
+
+        await campaign.methods.approveRequest(0).send({
+            from: accounts[0],
+            gas: '1000000'
+        }); //approved the request before finallizing it
+        //accounts[0] is the only contributor in this campaign and he's also the manager 
+        console.log('request approved...');
+
+        //get balance of receiver before finalize request
+        let preBalance = await web3.eth.getBalance(accounts[1]);
+        preBalance = web3.utils.fromWei(preBalance, 'ether');
+        preBalance = parseFloat(preBalance);
+        console.log('preBalance of receiver acquired...');
+        console.log('preBalance = ', preBalance);
+        
+        await campaign.methods.finalizeRequest(0).send({
+            from: accounts[0],
+            gas: '1000000'
+        }); //here we use accounts[0] because it is the manager and only manager can call finalizeRequest() function/method 
+        console.log('request finalized...');
+
+        // Note:  ganache initialises accounts with 100 ether each time
+        let postBalance = await web3.eth.getBalance(accounts[1]); //after calling finalizeRequest() accounts[1] should've recevied some amount of ether, we are checking if that's the case 
+        // 'web3.eth.getBalance(accounts[1])' this returns a string to assert() it we need to change it into ether then to a number
+        postBalance = web3.utils.fromWei(postBalance, 'ether');
+        postBalance = parseFloat(postBalance); //parseFloat is a built in JS function that turns strings into decimal numbers
+        if(postBalance > preBalance) { 
+            console.log('request paid...'); 
+        };
+        console.log('transaction postBalance = ', postBalance);
+        assert(postBalance > 104); //we are doing this because some of it gets used up in gas so exactly 105 nahi hoga
     });
 });
