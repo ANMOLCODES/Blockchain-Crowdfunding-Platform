@@ -3,7 +3,8 @@ import { Menu } from 'semantic-ui-react';
 
 const Footer = () => {
     return (
-        <p>Made by <a href="https://github.com/ANMOLCODES">Team CoinRaise</a></p>  
+        
+        <p style={{ textAlign: 'center' }}>Made by <a href="https://github.com/ANMOLCODES">Team CoinRaise</a></p>  
     );
 };
 
