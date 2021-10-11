@@ -11,18 +11,18 @@ const output = solc.compile(source, 1).contracts;
 
 fs.ensureDirSync(buildPath); //ensureDir checks to see if a drectory previously exits, if it doesn't, it creates it for us
 
-for (let contract in output) {
-    let name = contract.replace(':', '');
-    fs.outputJsonSync(
-        path.resolve(buildPath, name + '.json'),
-        output[contract]
-    );
-}
-
 // for (let contract in output) {
+//     let name = contract.replace(':', '');
 //     fs.outputJsonSync(
-//         path.resolve(buildPath, contract.replace(':', '') + '.json'),
+//         path.resolve(buildPath, name + '.json'),
 //         output[contract]
 //     );
 // }
+
+for (let contract in output) {
+    fs.outputJsonSync(
+        path.resolve(buildPath, contract.replace(':', '') + '.json'),
+        output[contract]
+    );
+}
 
