@@ -13,23 +13,22 @@ Contributors can decide Where to invest and can Acknowledge the requests for mon
 
 ## Demo Screenshots
 ***Home Page***
-![demo2](https://github.com/ANMOLCODES/CoinRaise/blob/master/Homepage.png)
-
-
-***Campaign Details***
-![demo1](https://github.com/chaharnishant11/CrowdCoin/blob/master/Screenshots/CampaignDetails.png)
+![demo2](https://github.com/ANMOLCODES/CoinRaise/blob/master/screenshots/Homepage.png)
 
 
 ***Create Campaign***
-![demo3](https://github.com/chaharnishant11/CrowdCoin/blob/master/Screenshots/createCampaign.png)
+![demo3](https://github.com/ANMOLCODES/CoinRaise/blob/master/screenshots/CreateCampaign.png)
 
+***Campaign Details***
+![demo1](https://github.com/ANMOLCODES/CoinRaise/blob/master/screenshots/CampaignDetails.png)
 
 ***Create Request***
-![demo4](https://github.com/chaharnishant11/CrowdCoin/blob/master/Screenshots/createRequest.png)
-
+![demo4](https://github.com/ANMOLCODES/CoinRaise/blob/master/screenshots/CreateRequest.png)
 
 ***Requests***
-![demo5](https://github.com/chaharnishant11/CrowdCoin/blob/master/Screenshots/Requests.png)
+![demo5](https://github.com/ANMOLCODES/CoinRaise/blob/master/screenshots/RequestsTable.png)
+
+
 ## Installation
 
 ### Install Git
