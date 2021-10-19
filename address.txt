@@ -2,6 +2,8 @@
 
 0x0EadD2ADa41A59e7A00D1D98372b57D9D42e78C4
 
+0xE8f11a359c731770e8CC5eCFbcCF9F51eabe9464 - Latest
+
 deployed to here
 
 npm install next react react-dom

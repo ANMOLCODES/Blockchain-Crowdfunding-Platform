@@ -40,19 +40,26 @@ contract Campaign {
     }
 
     function contribute() public payable {
+        // Ensure correct contribution
         require(msg.value > minimumContribution);
 
+        // Keep track of number of contributors
+        if(!approvers[msg.sender]) {
+            approversCount++;
+            // approvers[msg.sender] = true;
+        }
+
+        // Add contributor to mapping
         approvers[msg.sender] = true;
-        approversCount++;
-    }
+}
 
     function createRequest(string description, uint value, address recipient) public restricted {
         Request memory newRequest = Request({
-           description: description,
-           value: value,
-           recipient: recipient,
-           complete: false,
-           approvalCount: 0
+            description: description,
+            value: value,
+            recipient: recipient,
+            complete: false,
+            approvalCount: 0
         });
 
         requests.push(newRequest);
