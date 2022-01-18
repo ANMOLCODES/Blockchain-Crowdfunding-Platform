@@ -81,5 +81,3 @@ Information is stored across a network of computers instead of on a single serve
 The creator can only use the money if a minimum number of contributors approve a certain request. It will make sure the money is used for Necessities rather than Luxuries.
 #### Profit Distribution
 The owner of the startup is required to periodically enter details about revenue generation. Any profit that is generated is automatically distributed  among the investors providing investors with additional layer of security of interests of investors.
-#### Machine Learning
-Generating of finance related parameters such as gross profit, liquidity ratio, quick asset ratio etc. to produce a graph of these metrics and using Machine Learning Techniques(XGBoost, Random Forest Classifaction) to model performance of these Startups aiding them to make investment choices.
